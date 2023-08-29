@@ -1,0 +1,96 @@
+
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+<center><h3 style="color:red">PAYMENT DETAIL</h3><hr> </center>
+<center>
+<div style="width:55%;background-color:lightgrey" class="jumbotron">
+
+
+     <form action="{% url 'view_booking' %}" method="POST" enctype="multipart/form-data">
+         {% csrf_token %}
+
+
+         
+
+ <div class="row">
+                            
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+
+                                    Payable Amount <input style="margin:10px" type="text" class="form-control" value="₹{{total}}" name="amount" readonly/>
+                                    
+                                </div>
+                            </div>
+                        
+                        
+                            <div class="col-md-6">
+                                <input style="color:white;font-size:20px" type="submit" class="btn btn-success btn-lg btn-block" id="payment" name="payment" value="payment">
+							</div>
+
+                             <div class="col-md-6">
+                                <a href="{% url 'view_booking' %}" class="btn btn-success btn-lg btn-block" ><h6>Cash On Delivery</h6></a>
+							</div>
+                    
+                        </form>
+                    </div>
+</div></center></div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  
+var amt="{{total}}";
+var amt1=parseInt(amt)*100;
+var options = {
+    "key": "rzp_test_d4iXfAlHo8uPyg", // Enter the Key ID generated from the Dashboard
+    "amount": amt1, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Ayurcare",
+    "description": "Medicine Purpose",
+    
+    "image": "https://example.com/your_logo",
+    //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+      
+        alert("Payment Successful");
+        alert('Booking order Successfully');
+    window.location="{% url 'view_booking' %}";
+    },
+    "prefill": {
+        "name": "{{request.user.username}}",
+        "email": "{{request.user.email}}",
+        "contact": "{{request.user.contact}}"
+    },
+    "notes": {
+        "address": "{{data.address}}"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('payment').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+
+}
+
+</script>
+{% if error %}
+<script>
+  
+</script>
+{% endif %}
+
+{% endblock %}

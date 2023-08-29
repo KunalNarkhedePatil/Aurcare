@@ -1,0 +1,332 @@
+{% extends 'navigation.html' %}
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+<head>
+<link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Vendor CSS-->
+<link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+<link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+<!-- Main CSS-->
+<link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
+<script src=/ayurcare/static/js/data_validation.js></script>
+<style>
+    body{
+      background-image: url('/media/2996863.png');  
+      
+    }
+
+</style>
+</head>
+
+<body>
+    <div class="page-wrapper p-t-130 p-b-100 font-poppins" >
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4" >
+                <div class="card-body">
+                    <h2 class="title">Registration Form</h2>
+                    <form method="POST" action=""  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">first name</label>
+                                    <input class="input--style-4" type="text" name="fname" id=fname required>
+                                    <span class=text-danger id=errfName></span>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">last name</label>
+                                    <input class="input--style-4" type="text" name="lname" id=lname required>
+                                    <span class=text-danger id=errlName></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">user name</label>
+                                    <input class="input--style-4" type="text" name="uname" id=uname required>
+                                    
+                                    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">password</label>
+                                    <input class="input--style-4" type="password" name="pwd" id=pass required>
+                                    <span class=text-danger id=errpass></span>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">Email</label>
+                                    <input class="input--style-4" type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                    <span class=text-danger id=emailErr></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">Contact</label>
+                                    <input class="input--style-4" type="text" name="contact" maxlength="10" id="txtmob" required>
+                                    <span class=text-danger id=mbErr></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">City</label>
+                                    <input class="input--style-4" type="text" name="city" id="txtcity" required>
+                                    <span class=text-danger id=errCity></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">Date of Birth</label>
+                                    <input class="input--style-4" type="date" name="date" id="exampleInputPassword1" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">Full Address</label>
+                                    <input class="input--style-4" type="text" name="add" id="exampleInputPassword1" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">Choose Image</label>
+                                    <input class="input--style-4" type="file" name="img" id="exampleInputPassword1" value="choose file" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
+                        <script>
+                            /**
+ * 
+ */
+ 
+ $(document).ready(function(){
+	  $("#fname").blur(function(){
+                nme=document.getElementById("fname").value;
+                //alert(nme.length);
+                regExp=/^[a-zA-Z. ]+$/;
+                //alert(nme);
+	            if(!regExp.test(nme))
+                {
+                    document.getElementById("errfName").innerHTML="Enter Valid Fast Name";
+                    $("#errfName").show(1000);
+                }
+                else
+                {   
+                   
+                    $("#errfName").hide(1000);
+                }
+                
+            });
+            $("#lname").blur(function(){
+                nme=document.getElementById("lname").value;
+                //alert(nme.length);
+                regExp=/^[a-zA-Z. ]+$/;
+                //alert(nme);
+	            if(!regExp.test(nme))
+                {
+                    document.getElementById("errlName").innerHTML="Enter Valid Last Name";
+                    $("#errlName").show(1000);
+                }
+                else
+                {   
+                   
+                    $("#errlName").hide(1000);
+                }
+                
+            });
+             $("#txtmob").blur(function(){ 
+                mob=document.getElementById("txtmob").value;
+                regExp=/^[6-9]{1}[0-9]{9}$/;
+                if(!regExp.test(mob))
+                {
+                    document.getElementById("mbErr").innerHTML="Invalid Mobile Number";
+                    $("#mbErr").css("color","red");
+                    $("#mbErr").show(1000);
+                }
+                else
+                {
+                    $("#mbErr").hide(1000);
+                }
+            });
+            
+            $("#exampleInputEmail1").blur(function(){ 
+            email=document.getElementById("exampleInputEmail1").value;
+            regExp=/^[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*@[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$/;
+            if(!regExp.test(email))
+            {
+                document.getElementById("emailErr").innerHTML="Invalid Email";
+                $("#emailErr").show(1000);
+
+            }
+            else
+            {
+                $("#emailErr").hide(1000);
+                
+            }
+
+
+        });
+        
+         $("#txtcity").blur(function(){
+                nme=document.getElementById("txtcity").value;
+                //alert(nme.length);
+                regExp=/^[a-zA-Z. ]+$/;
+                //alert(nme);
+	            if(!regExp.test(nme))
+                {
+                    document.getElementById("errCity").innerHTML="Enter Valid City Name";
+                    $("#errCity").show(1000);
+                }
+                else
+                {   
+                   
+                    $("#errCity").hide(1000);
+                }
+                
+            });
+            $("#pass").blur(function(){
+                pass=document.getElementById("pass").value;
+                //alert(nme.length);
+                regExp=/^(?=.*\d).{8,}$/;
+                //alert(nme);
+	            if(!regExp.test(pass))
+                {
+                    document.getElementById("errpass").innerHTML="password should be minimum 8 chars";
+                    $("#errpass").show(1000);
+                }
+                else
+                {   
+                   
+                    $("#errpass").hide(1000);
+                }
+                
+            });
+	
+});
+                        </script>
+                        <!-- <script>
+                            function gfg() {
+                                var name =
+                                    document.forms.RegForm.fname.value;
+                                var lname =
+                                    document.forms.RegForm.lname.value;
+                                var uname =
+                                    document.forms.RegForm.uname.value;
+                                var password =
+                                    document.forms.RegForm.inputpassword4.value;
+                                var email =
+                                    document.forms.RegForm.email.value;
+                                
+                                var phone =
+                                    document.forms.RegForm.contact.value;
+                                var what =
+                                    document.forms.RegForm.city.value;
+                                
+                                var address =
+                                    document.forms.RegForm.add.value;
+                          
+                                var regEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;  //Javascript reGex for Email Validation.
+                                var regPhone=/^\d{10}$/;                                        // Javascript reGex for Phone Number validation.
+                                var regName = /\d+$/g;                                    // Javascript reGex for Name validation
+                          
+                                if (name == "" || regName.test(fname)) {
+                                    window.alert("Please enter your name properly.");
+                                    name.focus();
+                                    return false;
+                                }
+                          
+                                if (address == "") {
+                                    window.alert("Please enter your address.");
+                                    address.focus();
+                                    return false;
+                                }
+                                 
+                                if (email == "" || !regEmail.test(email)) {
+                                    window.alert("Please enter a valid e-mail address.");
+                                    email.focus();
+                                    return false;
+                                }
+                                  
+                                if (password == "") {
+                                    alert("Please enter your password");
+                                    password.focus();
+                                    return false;
+                                }
+                          
+                                if(password.length <6){
+                                    alert("Password should be atleast 6 character long");
+                                    password.focus();
+                                    return false;
+                          
+                                }
+                                if (phone == "" || !regPhone.test(contact)) {
+                                    alert("Please enter valid phone number.");
+                                    phone.focus();
+                                    return false;
+                                }
+                          
+                                if (what == "") {
+                                    alert("Please enter your city name.");
+                                    what.focus();
+                                    return false;
+                                }
+                          
+                                return true;
+                            }
+                          </script> -->
+                        {% if error %}
+<script>
+    alert('Registered Successfully');
+    window.location = "{% url 'login' %}";
+</script>
+{% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+{% endblock %}
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+
+
+
+<!-- end document-->
